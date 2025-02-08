@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑名单查询</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+       .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .clear-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+
+        .clear-icon:hover {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #result ol {
+            padding-left: 20px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>黑名单查询</h1>
+        <div class="input-container">
+            <input type="text" id="queryInput" placeholder="输入要查询的内容" onkeydown="if (event.key === 'Enter') checkBlacklist()">
+            <span class="clear-icon" onclick="clearInput()">X</span>
+        </div>
+        <button onclick="checkBlacklist()">查询</button>
+        <div id="result"></div>
+    </div>
+    <footer>该网页由随心制作</footer>
+    <script src="blacklist.js"></script>
+    <script>
+        function checkBlacklist() {
+            const query = document.getElementById('queryInput').value.trim();
+            if (query === '') {
+                alert('请输入要查询的内容');
+                return;
+            }
+
+            // 检查输入内容中数字的数量是否不少于 6 个
+            const numbers = query.match(/\d/g);
+            if (!numbers || numbers.length < 6) {
+                alert('输入内容中数字数量不能少于 6 个');
+                return;
+            }
+
+            // 将黑名单文本按行分割成数组
+            const blacklistLines = blacklistText.split('\n');
+            const foundLines = [];
+
+            for (let i = 0; i < blacklistLines.length; i++) {
+                const line = blacklistLines[i].trim();
+                if (line.includes(query)) {
+                    foundLines.push(line);
+                }
+            }
+
+            const resultElement = document.getElementById('result');
+            if (foundLines.length > 0) {
+                let resultHTML = '<p style="color: red;">查询到以下黑名单记录：</p><ol>';
+                foundLines.forEach((line, index) => {
+                    resultHTML += `<li>${line}</li>`;
+                });
+                resultHTML += '</ol>';
+                resultElement.innerHTML = resultHTML;
+            } else {
+                resultElement.innerHTML = '<p style="color: green;">未查询到相关黑名单记录。</p>';
+            }
+        }
+
+        function clearInput() {
+            document.getElementById('queryInput').value = '';
+        }
+    </script>
+</body>
+
+</html>
