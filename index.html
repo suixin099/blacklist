@@ -128,10 +128,16 @@
                 return;
             }
 
-            // 检查输入内容中数字的数量是否不少于 6 个
+            // 检查输入内容中数字的数量
             const numbers = query.match(/\d/g);
-            if (!numbers || numbers.length < 6) {
-                alert('输入内容中数字数量不能少于 6 个');
+            const numberCount = numbers ? numbers.length : 0;
+
+            // 检查输入内容中汉字的数量
+            const chineseCharacters = query.match(/[\u4e00-\u9fa5]/g);
+            const chineseCount = chineseCharacters ? chineseCharacters.length : 0;
+
+            if (numberCount < 5 && chineseCount < 2) {
+                alert('输入内容需包含 5 个以上数字或者 2 个以上汉字');
                 return;
             }
 
