@@ -40,6 +40,7 @@
             width: 90%;
             max-width: 400px;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
 
         h1 {
@@ -57,11 +58,15 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
         }
 
-        /* 设置占位符样式为透明字 */
+        input[type="text"]:focus {
+            border-color: #007BFF;
+        }
+
         input[type="text"]::placeholder {
-            color: rgba(0, 0, 0, 0.3); /* 调整透明度 */
+            color: rgba(0, 0, 0, 0.3);
         }
 
         .clear-icon {
@@ -71,6 +76,7 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: #999;
+            transition: color 0.3s ease;
         }
 
         .clear-icon:hover {
@@ -86,6 +92,7 @@
             cursor: pointer;
             width: 100%;
             box-sizing: border-box;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -110,6 +117,50 @@
             font-size: 12px;
             color: white;
         }
+
+       .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+       .modal.show {
+            display: block;
+            opacity: 1;
+        }
+
+       .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+       .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+       .close:hover,
+       .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -124,47 +175,73 @@
         <div id="result"></div>
     </div>
     <footer>该网页由随心制作</footer>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
     <script src="blacklist.js"></script>
     <script>
+        // 常量定义
+        const MODAL_SHOW_DURATION = 1400;
+        const INPUT_NUMBER_MIN_COUNT = 5;
+        const INPUT_CHINESE_MIN_COUNT = 2;
+
+        // 缓存 DOM 元素
+        const queryInput = document.getElementById('queryInput');
+        const resultElement = document.getElementById('result');
+        const modal = document.getElementById('myModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const closeBtn = document.querySelector('.close');
+
         document.addEventListener('DOMContentLoaded', function () {
-            // 计算黑名单行数 - 4
             const lineCount = blacklistText.split('\n').length - 4;
-            const queryInput = document.getElementById('queryInput');
             queryInput.placeholder = `现收录黑名单 ${lineCount} 条`;
         });
 
-        function checkBlacklist() {
-            const query = document.getElementById('queryInput').value.trim();
+        function showModal(message) {
+            modalMessage.textContent = message;
+            modal.classList.add('show');
+
+            closeBtn.onclick = function () {
+                modal.classList.remove('show');
+            };
+
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.classList.remove('show');
+                }
+            };
+
+            setTimeout(() => {
+                modal.classList.remove('show');
+            }, MODAL_SHOW_DURATION);
+        }
+
+        function validateInput(query) {
             if (query === '') {
-                alert('请输入要查询的内容');
-                return;
+                showModal('请输入要查询的内容');
+                return false;
             }
 
-            // 检查输入内容中数字的数量
             const numbers = query.match(/\d/g);
             const numberCount = numbers ? numbers.length : 0;
 
-            // 检查输入内容中汉字的数量
             const chineseCharacters = query.match(/[\u4e00-\u9fa5]/g);
             const chineseCount = chineseCharacters ? chineseCharacters.length : 0;
 
-            if (numberCount < 5 && chineseCount < 2) {
-                alert('输入内容需包含 5 个以上数字或者 2 个以上汉字');
-                return;
+            if (numberCount < INPUT_NUMBER_MIN_COUNT && chineseCount < INPUT_CHINESE_MIN_COUNT) {
+                showModal('输入内容需包含 5 个以上数字或者 2 个以上汉字');
+                return false;
             }
 
-            // 将黑名单文本按行分割成数组
-            const blacklistLines = blacklistText.split('\n');
-            const foundLines = [];
+            return true;
+        }
 
-            for (let i = 0; i < blacklistLines.length; i++) {
-                const line = blacklistLines[i].trim();
-                if (line.includes(query)) {
-                    foundLines.push(line);
-                }
-            }
-
-            const resultElement = document.getElementById('result');
+        function displayResults(foundLines) {
             if (foundLines.length > 0) {
                 let resultHTML = '<p style="color: red;">查询到以下黑名单记录：</p><ol>';
                 foundLines.forEach((line, index) => {
@@ -177,8 +254,27 @@
             }
         }
 
+        function checkBlacklist() {
+            const query = queryInput.value.trim();
+            if (!validateInput(query)) {
+                return;
+            }
+
+            const blacklistLines = blacklistText.split('\n');
+            const foundLines = [];
+
+            for (let i = 0; i < blacklistLines.length; i++) {
+                const line = blacklistLines[i].trim();
+                if (line.includes(query)) {
+                    foundLines.push(line);
+                }
+            }
+
+            displayResults(foundLines);
+        }
+
         function clearInput() {
-            document.getElementById('queryInput').value = '';
+            queryInput.value = '';
         }
     </script>
 </body>
