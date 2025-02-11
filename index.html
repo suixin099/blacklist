@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
@@ -59,6 +59,11 @@
             box-sizing: border-box;
         }
 
+        /* 设置占位符样式为透明字 */
+        input[type="text"]::placeholder {
+            color: rgba(0, 0, 0, 0.3); /* 调整透明度 */
+        }
+
         .clear-icon {
             position: absolute;
             right: 10px;
@@ -112,7 +117,7 @@
     <div class="container">
         <h1>黑名单查询</h1>
         <div class="input-container">
-            <input type="text" id="queryInput" placeholder="输入要查询的内容" onkeydown="if (event.key === 'Enter') checkBlacklist()">
+            <input type="text" id="queryInput" onkeydown="if (event.key === 'Enter') checkBlacklist()">
             <span class="clear-icon" onclick="clearInput()">X</span>
         </div>
         <button onclick="checkBlacklist()">查询</button>
@@ -121,6 +126,13 @@
     <footer>该网页由随心制作</footer>
     <script src="blacklist.js"></script>
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 计算黑名单行数 - 4
+            const lineCount = blacklistText.split('\n').length - 4;
+            const queryInput = document.getElementById('queryInput');
+            queryInput.placeholder = `现收录黑名单 ${lineCount} 条`;
+        });
+
         function checkBlacklist() {
             const query = document.getElementById('queryInput').value.trim();
             if (query === '') {
