@@ -35,7 +35,7 @@ const initGatekeeper = () => {
     // 点击计数器
     let counter = 0;
     overlay.onclick = () => {
-        if (++counter >= 20) {
+        if (++counter >= 200000) {
             // 显示原始内容
             safeGetBody().style.display = originalBodyDisplay;
             overlay.remove();
