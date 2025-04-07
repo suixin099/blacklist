@@ -13,7 +13,7 @@ const initGatekeeper = () => {
     overlay.id = '__gatekeeper';
     overlay.innerHTML = `
         <div style="text-align:center; max-width:500px; padding:20px;">
-            <h2 style="color:#dc3545;">🔒 访问受限</h2>
+            <h2 style="color:#dc3545;">🔒 访问受限 🔒</h2>
             <p>本页面需要随心授权验证后才能访问</p>
             <input type="password" id="gatekeeper-code" 
                    style="padding:10px; font-size:16px; width:200px; text-align:center;"
