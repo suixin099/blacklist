@@ -5,8 +5,9 @@ const initGatekeeper = () => {
   const decrypt = (encodedStr) => atob(encodedStr);
 
   const encryptedCredentials = [
-	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, 
+	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
     { data: "Mzc4MTM4OTY1fGFpbmkxMzE0" }, //*|*
+	{ data: "bGNjMjAyMXwyNzE5ODk=" },
   ];
   
   const getValidCredentials = () => {
