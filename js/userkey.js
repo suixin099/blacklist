@@ -21,11 +21,29 @@ const initGatekeeper = () => {
   const STORAGE_KEY = 'gatekeeper-lock';
   const SESSION_KEY = 'gatekeeper-auth';
   const CREDS_KEY = 'gatekeeper-creds';
-  const PASSWORD_KEY = 'gatekeeper-password'; // 新增密码存储键
-  const BASE_DELAY = 2000;
-  const MAX_DELAY = 60000;
+  const PASSWORD_KEY = 'gatekeeper-password';
+  const LOCKOUT_KEY = 'gatekeeper-lockout';
+  const ATTEMPTS_KEY = 'gatekeeper-attempts';
+  const BASE_DELAY = 2000; // 初始锁定时间2秒
+  const MAX_DELAY = 5 * 60 * 1000; // 最大锁定时间5分钟
+  const MAX_ATTEMPTS = 10; // 最大尝试次数
   const SESSION_TIMEOUT = 15 * 60 * 1000;
   const REMEMBER_ME_EXPIRE = 30 * 24 * 60 * 60 * 1000;
+
+  // 检查锁定状态
+  const checkLockout = () => {
+    const lockoutData = localStorage.getItem(LOCKOUT_KEY);
+    if (lockoutData) {
+      const { timestamp, delay } = JSON.parse(lockoutData);
+      const remainingTime = delay - (Date.now() - timestamp);
+      if (remainingTime > 0) {
+        return Math.ceil(remainingTime / 1000); // 返回剩余秒数
+      } else {
+        localStorage.removeItem(LOCKOUT_KEY);
+      }
+    }
+    return 0;
+  };
 
   // 创建登录界面
   const overlay = document.createElement('div');
@@ -49,7 +67,7 @@ const initGatekeeper = () => {
     <div style="text-align: center; max-width: 500px; padding: 20px;">
       <h2 style="color: #dc3545; margin-bottom: 20px;">访问受限</h2>
       <p style="margin-bottom: 25px;">本页面需要身份验证后才能访问</p>
-	  <p style="margin-bottom: 25px;">熟人找随心注册登录，不熟的拉群上管理后注册</p>
+      <p style="margin-bottom: 25px;">熟人找随心注册登录，不熟的拉群上管理后注册</p>
       
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; max-width: 280px; margin: 0 auto;">
         <div style="position: relative; width: 100%;">
@@ -94,16 +112,53 @@ const initGatekeeper = () => {
   const messageEl = document.getElementById('gatekeeper-message');
   const timerEl = document.getElementById('gatekeeper-timer');
   
+  // 更新锁定状态显示
+  const updateLockStatus = () => {
+    const remainingSeconds = checkLockout();
+    if (remainingSeconds > 0) {
+      submitButton.disabled = true;
+      submitButton.style.background = '#6c757d';
+      timerEl.textContent = `请等待 ${remainingSeconds} 秒后重试`;
+      setTimeout(updateLockStatus, 1000);
+    } else {
+      submitButton.disabled = false;
+      submitButton.style.background = '#dc3545';
+      timerEl.textContent = '';
+    }
+  };
+
+  // 初始化检查锁定状态
+  updateLockStatus();
+
   // 验证逻辑
   const verifyAccess = () => {
+    // 检查是否处于锁定状态
+    const remainingSeconds = checkLockout();
+    if (remainingSeconds > 0) {
+      updateLockStatus();
+      return;
+    }
+
+    // 防止重复点击
+    submitButton.disabled = true;
+    submitButton.textContent = '验证中...';
+
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
     
+    // 获取当前尝试次数
+    let attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || '0');
+    
+    // 立即验证（不再延迟后验证）
     const isValid = VALID_CREDENTIALS.some(cred => 
       cred.username === username && cred.password === password
     );
     
     if(isValid) {
+      // 登录成功，重置计数器
+      localStorage.removeItem(ATTEMPTS_KEY);
+      localStorage.removeItem(LOCKOUT_KEY);
+      
       document.body.style.display = '';
       overlay.remove();
       sessionStorage.setItem(SESSION_KEY, Date.now());
@@ -120,9 +175,26 @@ const initGatekeeper = () => {
         localStorage.removeItem(PASSWORD_KEY);
       }
     } else {
-      messageEl.textContent = "用户名或密码错误";
+      // 登录失败，增加尝试次数并锁定
+      attempts++;
+      localStorage.setItem(ATTEMPTS_KEY, attempts.toString());
+      
+      // 计算指数递增的延迟时间
+      const delay = Math.min(BASE_DELAY * Math.pow(2, attempts - 1), MAX_DELAY);
+      localStorage.setItem(LOCKOUT_KEY, JSON.stringify({
+        timestamp: Date.now(),
+        delay: delay
+      }));
+      
+      // 更新UI状态
+      updateLockStatus();
+      messageEl.textContent = `用户名或密码错误 (${attempts}/${MAX_ATTEMPTS})`;
       passwordInput.value = '';
     }
+    
+    // 恢复按钮状态
+    submitButton.disabled = remainingSeconds > 0;
+    submitButton.textContent = '登录';
   };
 
   // 事件绑定
