@@ -99,6 +99,12 @@ const initGatekeeper = () => {
       <p id="gatekeeper-message" style="color: #dc3545; margin-top: 15px; min-height: 20px; font-size: 13px;"></p>
       <p id="gatekeeper-timer" style="color: #6c757d; margin-top: 10px; font-size: 13px;"></p>
     </div>
+	
+	</div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 30px auto 0; max-width: 90vw; max-height: 40vh; overflow-y: auto;">
+      <img src="./picture/shenru1.png" alt="图片1" style="max-width: min(100%, 400px); height: auto; border-radius: 8px; object-fit: contain;">
+      <img src="./picture/shenru2.png" alt="图片2" style="max-width: min(100%, 400px); height: auto; border-radius: 8px; object-fit: contain;">
+    </div>
   `;
   
   // 添加到DOM
