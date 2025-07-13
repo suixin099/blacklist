@@ -4,9 +4,9 @@
         }
 
         // 页面加载时自动显示免责声明
-        window.onload = function() {
-            document.getElementById('disclaimerModal').classList.add('show');
-        }
+        //window.onload = function() {
+        //    document.getElementById('disclaimerModal').classList.add('show');
+        //}
 		
         // 常量定义
         const MODAL_SHOW_DURATION = 1400;
