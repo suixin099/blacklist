@@ -1,4 +1,34 @@
 const initGatekeeper = () => {
+	// 禁止调试代码开始
+    // 禁用快捷键
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+            (e.ctrlKey && e.key === 'U')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    禁用右键菜单
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    禁用debugger
+    (function() {
+        function block() {
+            setInterval(function() {
+                (function(){}).constructor('debugger')();
+            }, 50);
+        }
+        try {
+            block();
+        } catch(e) {}
+    })();
+    // 禁止调试代码结束
   const CRYPTO_KEY = atob("Mw==");
   
   const encrypt = (str) => btoa(str);
