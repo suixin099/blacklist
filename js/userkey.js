@@ -68,7 +68,6 @@ const initGatekeeper = () => {
     <div style="text-align: center; max-width: 500px; padding: 20px;">
       <h2 style="color: #dc3545; margin-bottom: 20px;">访问受限</h2>
       <p style="margin-bottom: 25px;">本页面需要身份验证后才能访问</p>
-      <p style="margin-bottom: 25px;">熟人找随心注册登录，不熟的拉群上管理后注册</p>
 	  <p style="margin-bottom: 25px;">限时开放 用户名：shenru 密码：toulaoban</p>
       
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; max-width: 280px; margin: 0 auto;">
