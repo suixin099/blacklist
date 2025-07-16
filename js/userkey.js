@@ -7,7 +7,7 @@ const initGatekeeper = () => {
   const encryptedCredentials = [
 	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
     { data: "Mzc4MTM4OTY1fGFpbmkxMzE0" }, //*|*
-	{ data: "bGNjMjAyMXwyNzE5ODk=" },
+	{ data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
   ];
   
   const getValidCredentials = () => {
