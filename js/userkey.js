@@ -5,7 +5,7 @@ const initGatekeeper = () => {
   const decrypt = (encodedStr) => atob(encodedStr);
 
   const encryptedCredentials = [
-	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
+	//{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
     { data: "Mzc4MTM4OTY1fGFpbmkxMzE0" }, //*|*
 	{ data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
   ];
@@ -69,7 +69,7 @@ const initGatekeeper = () => {
     <div style="text-align: center; max-width: 500px; padding: 20px;">
       <h2 style="color: #dc3545; margin-bottom: 20px;">访问受限</h2>
       <p style="margin-bottom: 25px;">本页面需要身份验证后才能访问</p>
-	  <p style="margin-bottom: 25px;">限时开放 用户名：shenru 密码：toulaoban</p>
+	  <p style="margin-bottom: 25px;">下方是深入偷老板的证据</p>
       
       <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; max-width: 280px; margin: 0 auto;">
         <div style="position: relative; width: 100%;">
