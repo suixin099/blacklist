@@ -69,7 +69,6 @@ const initGatekeeper = () => {
 
   overlay.innerHTML = `
     <div style="text-align: center; max-width: 500px; padding: 20px;">
-      <h2 style="color: #dc3545; margin-bottom: 20px;">访问受限</h2>
 	  <p style="margin-bottom: 30px; background: linear-gradient(135deg, #FF1E56, #FFAC41, #1CE7B5, #6B4EFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold; font-size: 18px;">为众人抱薪者，不可使其冻毙于风雪</p>
 	  <p style="margin-bottom: 25px;">下方是深入偷老板的证据</p>
 	  <p style="margin-bottom: 25px;color: #dc3545;">随心感谢圈内各位的团结，给大家带来新年福利</p>
