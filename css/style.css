@@ -196,3 +196,45 @@ body {
         .modal.show {
             display: flex;
         }
+		
+		/* 广告位招租模块 */
+.ad-space {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 0 15px;
+}
+
+.ad-space a {
+    text-decoration: none;
+    display: block;
+    border: 2px dashed #ff6b6b;
+    border-radius: 8px;
+    background-color: #fff9f9;
+    transition: all 0.3s ease;
+}
+
+.ad-space a:hover {
+    background-color: #ffe9e9;
+    border-color: #ff4757;
+    transform: scale(1.02);
+}
+
+.ad-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.ad-label {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4757;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.ad-sub {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
