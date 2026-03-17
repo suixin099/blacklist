@@ -5,7 +5,7 @@ const initGatekeeper = () => {
   const decrypt = (encodedStr) => atob(encodedStr);
 
   const encryptedCredentials = [
-	//{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
+	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
     { data: "Mzc4MTM4OTY1fGFpbmkxMzE0" }, //*|*
 	{ data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
 	{ data: "YW41MjB8YW41MjA=" }, //硬酱
