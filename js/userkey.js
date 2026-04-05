@@ -10,6 +10,8 @@ const initGatekeeper = () => {
     { data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
     { data: "YW41MjB8YW41MjA=" }, //硬酱
     { data: "cWF6d3N4fDEyMzQ1Njc4OTA=" }, //清澄
+	{ data: "MTM0NjQ0Mjc2fGx4bHgxMjM0" }, //2410913226 优
+	{ data: "MzA2NTUyMTF8MTU5MzU3MjgwcQ==" }, //3046552117 知音
   ];
   
   const getValidCredentials = () => {
@@ -33,6 +35,8 @@ const initGatekeeper = () => {
   const MAX_ATTEMPTS = 10; // 最大尝试次数
   const SESSION_TIMEOUT = 15 * 60 * 1000;
   const REMEMBER_ME_EXPIRE = 30 * 24 * 60 * 60 * 1000;
+  // 新增：登录过渡动画时长（可自定义，建议1.5-2秒）
+  const LOGIN_TRANSITION_DURATION = 1800;
 
   // 检查锁定状态
   const checkLockout = () => {
@@ -73,6 +77,8 @@ const initGatekeeper = () => {
       justify-content: flex-start;
       padding-top: 20px;
     }
+    /* 新增：淡出过渡 */
+    transition: opacity 0.5s ease, transform 0.5s ease;
   `;
 
   overlay.innerHTML = `
@@ -91,7 +97,9 @@ const initGatekeeper = () => {
         max-height: 85vh;
         padding: clamp(15px, 3vw, 25px) clamp(15px, 3vw, 30px);
       }
-    ">
+      /* 新增：登录成功后卡片缩放过渡 */
+      transition: all 0.5s ease;
+    " id="login-card">
       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #e53e3e 0%, #ed8936 100%);"></div>
       
       <div style="
@@ -388,6 +396,38 @@ const initGatekeeper = () => {
           margin-top: 4px;
         }
       "></p>
+
+      <!-- 新增：登录成功后的加载动画容器（默认隐藏） -->
+      <div id="login-success-loader" style="
+        margin-top: clamp(15px, 4vw, 20px);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      ">
+        <!-- 加载动画 -->
+        <div style="
+          width: clamp(30px, 8vw, 40px);
+          height: clamp(30px, 8vw, 40px);
+          border: 3px solid #e2e8f0;
+          border-top-color: #1677ff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        "></div>
+        <p style="
+          color: #4a5568;
+          font-size: clamp(12px, 2.8vw, 15px);
+          margin: 0;
+        " id="login-success-text">正在验证身份...</p>
+      </div>
+      <style>
+        /* 新增：加载动画关键帧 */
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      </style>
     </div>
   `;
   
@@ -404,6 +444,10 @@ const initGatekeeper = () => {
   const timerEl = document.getElementById('gatekeeper-timer');
   const registerLabel = document.getElementById('register-label');
   const registerTip = document.getElementById('register-tip');
+  // 新增：获取登录卡片和加载动画元素
+  const loginCard = document.getElementById('login-card');
+  const loginSuccessLoader = document.getElementById('login-success-loader');
+  const loginSuccessText = document.getElementById('login-success-text');
   
   // 输入框焦点
   usernameInput.addEventListener('focus', () => {
@@ -519,21 +563,51 @@ const initGatekeeper = () => {
     if(isValid) {
       localStorage.removeItem(ATTEMPTS_KEY);
       localStorage.removeItem(LOCKOUT_KEY);
-      document.body.style.display = '';
-      overlay.remove();
-      sessionStorage.setItem(SESSION_KEY, Date.now());
       
-      if (rememberCheckbox.checked) {
-        localStorage.setItem(CREDS_KEY, encrypt(username));
-      } else {
-        localStorage.removeItem(CREDS_KEY);
-      }
+      // ========== 核心修改：登录成功后的过渡动画 ==========
+      // 1. 隐藏登录表单相关元素，显示加载动画
+      usernameInput.style.display = 'none';
+      passwordInput.style.display = 'none';
+      rememberCheckbox.closest('div').style.display = 'none';
+      savePasswordCheckbox.closest('div').style.display = 'none';
+      registerLabel.style.display = 'none';
+      submitButton.style.display = 'none';
+      messageEl.style.display = 'none';
+      timerEl.style.display = 'none';
+      loginSuccessLoader.style.display = 'flex';
+
+      // 2. 模拟加载进度（可选，增强体验）
+      const randomDelay = Math.floor(Math.random() * (2000 - 300 + 1)) + 300;
+		setTimeout(() => {
+		  loginSuccessText.textContent = '身份验证成功...';
+		}, randomDelay);
+		  setTimeout(() => {
+        loginSuccessText.textContent = '请稍等...';
+        // 3. 卡片缩放+遮罩淡出
+        loginCard.style.transform = 'scale(0.95)';
+        overlay.style.opacity = 0.8;
+      }, 1200);
+
+      // 4. 延迟后完成登录（时长对应 LOGIN_TRANSITION_DURATION）
+      setTimeout(() => {
+        document.body.style.display = '';
+        overlay.remove();
+        sessionStorage.setItem(SESSION_KEY, Date.now());
+        
+        if (rememberCheckbox.checked) {
+          localStorage.setItem(CREDS_KEY, encrypt(username));
+        } else {
+          localStorage.removeItem(CREDS_KEY);
+        }
+        
+        if (savePasswordCheckbox.checked) {
+          localStorage.setItem(PASSWORD_KEY, encrypt(password));
+        } else {
+          localStorage.removeItem(PASSWORD_KEY);
+        }
+      }, LOGIN_TRANSITION_DURATION);
+      // ==================================================
       
-      if (savePasswordCheckbox.checked) {
-        localStorage.setItem(PASSWORD_KEY, encrypt(password));
-      } else {
-        localStorage.removeItem(PASSWORD_KEY);
-      }
     } else {
       attempts++;
       localStorage.setItem(ATTEMPTS_KEY, attempts.toString());
