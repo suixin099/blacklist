@@ -15,6 +15,7 @@ const initGatekeeper = () => {
 	{ data: "NDQ0ODI2NzA5fDQ0NDgyNjcwOQ==" }, //444826709 逍遥
 	{ data: "encwMzI5fHp3NDIwMzI2Li4=" }, //13692002 辰雪
 	{ data: "MzM4Mzc1MDQ2OHxxaW4zMzgzNzUwNDY4" }, //3383750468 Nova
+	{ data: "MTAxMTQ4NzIyNHwxMDExNDg3MjI0QA==" }, //1011487224 菲菲
   ];
   
   const getValidCredentials = () => {
@@ -38,7 +39,6 @@ const initGatekeeper = () => {
   const MAX_ATTEMPTS = 10; // 最大尝试次数
   const SESSION_TIMEOUT = 15 * 60 * 1000;
   const REMEMBER_ME_EXPIRE = 30 * 24 * 60 * 60 * 1000;
-  // 新增：登录过渡动画时长（可自定义，建议1.5-2秒）
   const LOGIN_TRANSITION_DURATION = 1800;
 
   // 检查锁定状态
@@ -80,7 +80,7 @@ const initGatekeeper = () => {
       justify-content: flex-start;
       padding-top: 20px;
     }
-    /* 新增：淡出过渡 */
+    /* 淡出过渡 */
     transition: opacity 0.5s ease, transform 0.5s ease;
   `;
 
@@ -100,7 +100,7 @@ const initGatekeeper = () => {
         max-height: 85vh;
         padding: clamp(15px, 3vw, 25px) clamp(15px, 3vw, 30px);
       }
-      /* 新增：登录成功后卡片缩放过渡 */
+      /*登录成功后卡片缩放过渡 */
       transition: all 0.5s ease;
     " id="login-card">
       <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #e53e3e 0%, #ed8936 100%);"></div>
@@ -567,7 +567,7 @@ const initGatekeeper = () => {
       localStorage.removeItem(ATTEMPTS_KEY);
       localStorage.removeItem(LOCKOUT_KEY);
       
-      // ========== 核心修改：登录成功后的过渡动画 ==========
+      // ========== 登录成功后的过渡动画 ==========
       // 1. 隐藏登录表单相关元素，显示加载动画
       usernameInput.style.display = 'none';
       passwordInput.style.display = 'none';
@@ -579,14 +579,14 @@ const initGatekeeper = () => {
       timerEl.style.display = 'none';
       loginSuccessLoader.style.display = 'flex';
 
-      // 2. 模拟加载进度（可选，增强体验）
+      // 2. 模拟加载进度
       const randomDelay = Math.floor(Math.random() * (2000 - 300 + 1)) + 300;
 		setTimeout(() => {
 		  loginSuccessText.textContent = '身份验证成功...';
 		}, randomDelay);
 		  setTimeout(() => {
         loginSuccessText.textContent = '请稍等...';
-        // 3. 卡片缩放+遮罩淡出
+        // 3. 卡片缩放 遮罩淡出
         loginCard.style.transform = 'scale(0.95)';
         overlay.style.opacity = 0.8;
       }, 1200);
