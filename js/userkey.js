@@ -14,6 +14,7 @@ const initGatekeeper = () => {
 	{ data: "MzA2NTUyMTF8MTU5MzU3MjgwcQ==" }, //3046552117 知音
 	{ data: "NDQ0ODI2NzA5fDQ0NDgyNjcwOQ==" }, //444826709 逍遥
 	{ data: "encwMzI5fHp3NDIwMzI2Li4=" }, //13692002 辰雪
+	{ data: "MzM4Mzc1MDQ2OHxxaW4zMzgzNzUwNDY4" }, //3383750468 Nova
   ];
   
   const getValidCredentials = () => {
