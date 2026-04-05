@@ -23,6 +23,7 @@ const initGatekeeper = () => {
 	{ data: "MTMyMDA4OTU1MHxubjEyMzQ1Ng==" }, //2430799104 艾
 	{ data: "cWF6MzM1fHFxMTIzNDU2" }, //3676171200 伽澜
 	{ data: "aGVpaGVpODg4fGExMjM0NTY=" }, //1095824511 黑黑
+	{ data: "ZHVvZHVvfDM3MzgzOWFi" }, //3440932924 囡的小迷妹
   ];
   
   const getValidCredentials = () => {
