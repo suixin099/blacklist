@@ -506,27 +506,23 @@ const initGatekeeper = () => {
   });
 
   // 注册标签效果
-  registerLabel.addEventListener('mouseenter', () => {
-    registerLabel.style.color = '#4096ff';
-    registerLabel.style.transform = 'scale(1.05)';
-  });  
-  registerLabel.addEventListener('mouseleave', () => {
-    registerLabel.style.color = '#1677ff';
-    registerLabel.style.transform = 'scale(1)';
-  });  
-  registerLabel.addEventListener('click', () => {
-    registerTip.style.color = '#ff0000';
-    registerTip.style.fontSize = 'clamp(14px, 4vw, 16px)';
-    registerTip.style.fontWeight = '600';
-    registerTip.style.transform = 'scale(1.05)';
-	registerTip.innerHTML = "限时开放注册，联系：随心<br>直接发要注册的账号密码给随心";
-    setTimeout(() => {
-      registerTip.style.color = '#718096';
-      registerTip.style.fontSize = 'clamp(12px, 3vw, 14px)';
-      registerTip.style.fontWeight = 'normal';
-      registerTip.style.transform = 'scale(1)';
-    }, 3000);
-  });
+	registerLabel.addEventListener('mouseenter', () => {
+	  registerLabel.style.color = '#4096ff';
+	  registerLabel.style.transform = 'scale(1.05)';
+	});  
+	registerLabel.addEventListener('mouseleave', () => {
+	  registerLabel.style.color = '#1677ff';
+	  registerLabel.style.transform = 'scale(1)';
+	});  
+	registerLabel.addEventListener('click', () => {
+	  registerTip.style.color = '#ff0000';
+	  registerTip.style.fontWeight = '600';
+	  registerTip.innerHTML = "限时开放注册，联系：随心<br>直接发要注册的账号密码给随心";
+	  let currentScale = parseFloat(registerTip.style.transform.replace('scale(', '')) || 1;
+	  //每次点击增大 0.1 倍
+	  const newScale = currentScale + 0.1; 
+	  registerTip.style.transform = `scale(${newScale})`;
+	});
 
   // 锁定状态
   const updateLockStatus = () => {
