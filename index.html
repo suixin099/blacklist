@@ -2,16 +2,25 @@
 <html lang="zh">
 
 <head>
+	<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KZL024H70L"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-KZL024H70L');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>黑名单查询</title>
-	<link rel="stylesheet" href="./css/style.css">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
-<!-- 维护 -->
-<script src="./js/userkey.js"></script>
-	
+<body>
+    <script src="./js/userkey.js"></script>
+
     <div class="container">
         <h1>黑名单查询</h1>
         <div class="input-container">
@@ -20,20 +29,17 @@
         </div>
         <button onclick="checkBlacklist()">查询</button>
         <div id="result"></div>
-		
-		<!-- 广告位招租模块 -->
-    <div class="ad-space">
-        <a href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=378138965" target="_blank" rel="noopener noreferrer">
-            <div class="ad-content">
-                <span class="ad-label">广告位招租</span>
-                <span class="ad-sub">联系：随心</span>
-            </div>
-        </a>
+
+        <div class="ad-space">
+            <a href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=378138965" target="_blank" rel="noopener noreferrer">
+                <div class="ad-content">
+                    <span class="ad-label">广告位招租</span>
+                    <span class="ad-sub">联系：随心</span>
+                </div>
+            </a>
+        </div>
     </div>
 
-    </div>
-		
-    </div>
     <footer>黑名单来自各避雷群，不承担任何责任</footer>
 
     <div id="myModal" class="modal">
@@ -44,6 +50,7 @@
     </div>
 
     <script src="blacklist.js"></script>
-	<script src="./js/main.js"></script>
+    <script src="./js/main.js"></script>
 </body>
+
 </html>

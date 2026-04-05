@@ -5,11 +5,11 @@ const initGatekeeper = () => {
   const decrypt = (encodedStr) => atob(encodedStr);
 
   const encryptedCredentials = [
-	{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
+    //{ data: "c2hlbnJ1fHRvdWxhb2Jhbg==" }, //共用
     { data: "Mzc4MTM4OTY1fGFpbmkxMzE0" }, //*|*
-	{ data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
-	{ data: "YW41MjB8YW41MjA=" }, //硬酱
-	{ data: "cWF6d3N4fDEyMzQ1Njc4OTA=" }, //清澄
+    { data: "bGNjMjAyMXwyNzE5ODk=" }, //2465932040 木子
+    { data: "YW41MjB8YW41MjA=" }, //硬酱
+    { data: "cWF6d3N4fDEyMzQ1Njc4OTA=" }, //清澄
   ];
   
   const getValidCredentials = () => {
@@ -41,7 +41,7 @@ const initGatekeeper = () => {
       const { timestamp, delay } = JSON.parse(lockoutData);
       const remainingTime = delay - (Date.now() - timestamp);
       if (remainingTime > 0) {
-        return Math.ceil(remainingTime / 1000); // 返回剩余秒数
+        return Math.ceil(remainingTime / 1000);
       } else {
         localStorage.removeItem(LOCKOUT_KEY);
       }
@@ -58,59 +58,339 @@ const initGatekeeper = () => {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(255,255,255,0.98);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     z-index: 2147483647;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-y: auto;
+    padding: 20px 15px;
+    box-sizing: border-box;
+    @media (max-height: 500px) and (orientation: landscape) {
+      padding: 10px 15px;
+      justify-content: flex-start;
+      padding-top: 20px;
+    }
   `;
 
   overlay.innerHTML = `
-    <div style="text-align: center; max-width: 500px; padding: 20px;">
-      <h2 style="color: #dc3545; margin-bottom: 20px;">访问受限</h2>
-      <p style="margin-bottom: 25px;">本页面需要身份验证后才能访问</p>
-	  <p style="margin-bottom: 25px;color: #dc3545;">为众人抱薪者，不可使其冻毙于风雪</p>
-	  <p style="margin-bottom: 25px;">下方是深入偷老板的证据</p>
+    <div style="
+      text-align: center;
+      width: clamp(300px, 90vw, 420px);
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: clamp(20px, 5vw, 40px) clamp(15px, 3vw, 30px);
+      background: #ffffff;
+      border-radius: clamp(12px, 3vw, 20px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      position: relative;
+      box-sizing: border-box;
+      @media (max-height: 500px) and (orientation: landscape) {
+        max-height: 85vh;
+        padding: clamp(15px, 3vw, 25px) clamp(15px, 3vw, 30px);
+      }
+    ">
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, #e53e3e 0%, #ed8936 100%);"></div>
       
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; max-width: 280px; margin: 0 auto;">
+      <div style="
+        width: clamp(50px, 12vw, 80px);
+        height: clamp(50px, 12vw, 80px);
+        background: linear-gradient(135deg, #fef7fb 0%, #fdf2f8 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto clamp(15px, 4vw, 25px);
+        border: 2px solid #f0e6ea;
+        @media (max-height: 500px) and (orientation: landscape) {
+          width: clamp(40px, 10vw, 60px);
+          height: clamp(40px, 10vw, 60px);
+          margin: 0 auto clamp(10px, 3vw, 15px);
+        }
+      ">
+        <span style="font-size: clamp(20px, 7vw, 36px);">🔐</span>
+      </div>
+      
+      <h2 style="
+        color: #2d3748;
+        margin-bottom: 12px;
+        font-size: clamp(16px, 4.5vw, 24px);
+        font-weight: 700;
+        letter-spacing: -0.5px;
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin-bottom: 8px;
+          font-size: clamp(15px, 4vw, 20px);
+        }
+      ">访问受限</h2>
+      <p style="
+        margin-bottom: 8px;
+        color: #4a5568;
+        font-size: clamp(12px, 2.8vw, 15px);
+        line-height: 1.5;
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin-bottom: 4px;
+        }
+      ">本页面需要身份验证后才能访问</p>
+      <p style="
+        margin-bottom: 8px;
+        color: #e53e3e;
+        font-size: clamp(11px, 2.5vw, 14px);
+        font-weight: 500;
+        line-height: 1.5;
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin-bottom: 4px;
+        }
+      ">为众人抱薪者，不可使其冻毙于风雪</p>
+      <div style="margin-bottom: clamp(10px, 3vw, 20px);">
+        <p id="register-tip" style="
+          margin: 0;
+          color: #718096;
+          font-size: clamp(11px, 2.5vw, 14px);
+          line-height: 1.5;
+          transition: all 0.3s ease;
+        ">限时开放注册，联系：随心</p>
+      </div>
+      
+      <div style="
+        width: 85%;
+        margin: 0 auto clamp(15px, 4vw, 30px);
+        padding: clamp(10px, 2.5vw, 18px);
+        background: linear-gradient(135deg, #fef7fb 0%, #fdf2f8 100%);
+        border: 1px solid #f0e6ea;
+        border-radius: clamp(8px, 2vw, 12px);
+        box-shadow: 0 4px 12px rgba(229, 62, 62, 0.06);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin: 0 auto clamp(10px, 3vw, 15px);
+          padding: clamp(8px, 2vw, 12px);
+        }
+      ">
+        <div style="
+          display: inline-block;
+          background: #e53e3e;
+          color: white;
+          padding: clamp(3px, 1vw, 6px) clamp(10px, 2.5vw, 16px);
+          border-radius: 20px;
+          font-size: clamp(11px, 2.5vw, 14px);
+          font-weight: 600;
+          margin-bottom: 6px;
+          box-shadow: 0 2px 6px rgba(229, 62, 62, 0.12);
+        ">
+          📣 广告位招租
+        </div>
+        <p style="
+          color: #2d3748;
+          font-size: clamp(11px, 2.5vw, 15px);
+          margin: 0;
+          font-weight: 600;
+          width: 100%;
+          text-align: center;
+        ">联系：随心</p>
+      </div>
+      
+      <div style="
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, 3vw, 16px);
+        margin-bottom: clamp(15px, 4vw, 20px);
+        max-width: 320px;
+        margin: 0 auto clamp(15px, 4vw, 20px);
+        width: 100%;
+        @media (max-height: 500px) and (orientation: landscape) {
+          gap: clamp(8px, 2vw, 12px);
+          margin-bottom: clamp(10px, 3vw, 15px);
+        }
+      ">
         <div style="position: relative; width: 100%;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #6c757d; pointer-events: none; width: 20px; text-align: center;">👤</span>
-          <input id="gatekeeper-username" type="text" placeholder="用户名" autocomplete="username" style="display: block; padding: 8px 12px 8px 40px; font-size: 14px; line-height: 1.4; width: 100%; height: 36px; box-sizing: border-box; text-align: left; border-radius: 6px; border: 1px solid #ddd; transition: border-color 0.2s; font-family: inherit;">
+          <span style="
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: clamp(14px, 3.5vw, 18px);
+            color: #a0aec0;
+            pointer-events: none;
+            width: 24px;
+            text-align: center;
+          ">👤</span>
+          <input id="gatekeeper-username" type="text" placeholder="用户名" autocomplete="username" style="
+            display: block; 
+            padding: clamp(8px, 2vw, 12px) 16px clamp(8px, 2vw, 12px) 56px; 
+            font-size: clamp(12px, 2.8vw, 15px); 
+            line-height: 1.4; 
+            width: 100%; 
+            height: clamp(36px, 8vw, 48px); 
+            box-sizing: border-box; 
+            text-align: left; 
+            border-radius: clamp(8px, 2vw, 12px); 
+            border: 1px solid #e2e8f0; 
+            transition: all 0.2s ease; 
+            font-family: inherit;
+            background: #f7fafc;
+            @media (max-height: 500px) and (orientation: landscape) {
+              height: clamp(32px, 7vw, 40px);
+              padding: clamp(6px, 1.5vw, 10px) 16px clamp(6px, 1.5vw, 10px) 56px;
+            }
+          ">
         </div>
         
         <div style="position: relative; width: 100%;">
-          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #6c757d; pointer-events: none; width: 20px; text-align: center;">🔒</span>
-          <input id="gatekeeper-password" type="password" placeholder="密码" autocomplete="current-password" style="display: block; padding: 8px 12px 8px 40px; font-size: 14px; line-height: 1.4; width: 100%; height: 36px; box-sizing: border-box; text-align: left; border-radius: 6px; border: 1px solid #ddd; transition: border-color 0.2s; font-family: inherit;">
+          <span style="
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: clamp(14px, 3.5vw, 18px);
+            color: #a0aec0;
+            pointer-events: none;
+            width: 24px;
+            text-align: center;
+          ">🔒</span>
+          <input id="gatekeeper-password" type="password" placeholder="密码" autocomplete="current-password" style="
+            display: block; 
+            padding: clamp(8px, 2vw, 12px) 16px clamp(8px, 2vw, 12px) 56px; 
+            font-size: clamp(12px, 2.8vw, 15px); 
+            line-height: 1.4; 
+            width: 100%; 
+            height: clamp(36px, 8vw, 48px); 
+            box-sizing: border-box; 
+            text-align: left; 
+            border-radius: clamp(8px, 2vw, 12px); 
+            border: 1px solid #e2e8f0; 
+            transition: all 0.2s ease; 
+            font-family: inherit;
+            background: #f7fafc;
+            @media (max-height: 500px) and (orientation: landscape) {
+              height: clamp(32px, 7vw, 40px);
+              padding: clamp(6px, 1.5vw, 10px) 16px clamp(6px, 1.5vw, 10px) 56px;
+            }
+          ">
         </div>
       </div>
       
-      <div style="display: flex; flex-direction: column; gap: 8px; margin: 10px auto 15px; max-width: 280px;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <input type="checkbox" id="gatekeeper-remember" checked style="width: 16px; height: 16px; margin: 0;">
-          <label for="gatekeeper-remember" style="font-size: 13px; color: #6c757d; cursor: pointer; user-select: none;">记住用户名</label>
+      <div style="
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: clamp(10px, 2.5vw, 15px);
+        margin: clamp(5px, 2vw, 10px) auto clamp(15px, 4vw, 25px);
+        max-width: 320px;
+        width: 100%;
+        flex-wrap: wrap;
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin: clamp(5px, 1.5vw, 8px) auto clamp(10px, 3vw, 15px);
+          gap: clamp(8px, 2vw, 12px);
+        }
+      ">
+        <div style="
+          display: flex;
+          flex-direction: column;
+          gap: clamp(8px, 2vw, 12px);
+          flex: 1;
+          min-width: 180px;
+        ">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="gatekeeper-remember" checked style="
+              width: clamp(14px, 3.5vw, 18px); 
+              height: clamp(14px, 3.5vw, 18px); 
+              margin: 0; 
+              accent-color: #1677ff; 
+              cursor: pointer;
+            ">
+            <label for="gatekeeper-remember" style="
+              font-size: clamp(11px, 2.5vw, 14px); 
+              color: #4a5568; 
+              cursor: pointer; 
+              user-select: none;
+            ">记住用户名</label>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="gatekeeper-save-password" style="
+              width: clamp(14px, 3.5vw, 18px); 
+              height: clamp(14px, 3.5vw, 18px); 
+              margin: 0; 
+              accent-color: #1677ff; 
+              cursor: pointer;
+            ">
+            <label for="gatekeeper-save-password" style="
+              font-size: clamp(11px, 2.5vw, 14px); 
+              color: #4a5568; 
+              cursor: pointer; 
+              user-select: none;
+            ">保存密码</label>
+          </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <input type="checkbox" id="gatekeeper-save-password" style="width: 16px; height: 16px; margin: 0;">
-          <label for="gatekeeper-save-password" style="font-size: 13px; color: #6c757d; cursor: pointer; user-select: none;">保存密码</label>
-        </div>
+        <label id="register-label" style="
+          display: inline-block;
+          color: #1677ff;
+          font-size: clamp(12px, 2.8vw, 15px);
+          font-weight: 600;
+          cursor: pointer;
+          text-decoration: underline;
+          transition: all 0.2s ease;
+          white-space: nowrap;
+          flex-shrink: 0;
+          margin-top: 2px;
+          @media (max-width: 360px) {
+            margin-top: 8px;
+            flex-basis: 100%;
+            text-align: left;
+          }
+          @media (max-height: 500px) and (orientation: landscape) {
+            font-size: clamp(11px, 2.5vw, 14px);
+          }
+        ">注册账号</label>
       </div>
       
-      <button id="gatekeeper-submit" style="margin-top: 5px; padding: 8px 20px; height: 36px; background: #dc3545; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; width: 100%; max-width: 280px; font-family: inherit;">登录</button>
+      <button id="gatekeeper-submit" style="
+        margin-top: 5px; 
+        padding: clamp(8px, 2vw, 12px) 24px; 
+        height: clamp(38px, 8vw, 50px); 
+        background: linear-gradient(135deg, #1677ff 0%, #4096ff 100%);
+        color: white; 
+        border: none; 
+        border-radius: clamp(8px, 2vw, 12px); 
+        font-size: clamp(13px, 2.8vw, 16px); 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: all 0.2s ease; 
+        width: 100%; 
+        max-width: 320px; 
+        font-family: inherit;
+        box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+        @media (max-height: 500px) and (orientation: landscape) {
+          height: clamp(34px, 7vw, 42px);
+          padding: clamp(6px, 1.5vw, 10px) 24px;
+          font-size: clamp(12px, 2.5vw, 14px);
+        }
+      ">登录</button>
       
-      <p id="gatekeeper-message" style="color: #dc3545; margin-top: 15px; min-height: 20px; font-size: 13px;"></p>
-      <p id="gatekeeper-timer" style="color: #6c757d; margin-top: 10px; font-size: 13px;"></p>
-    </div>
-	
-	</div>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 30px auto 0; max-width: 90vw; max-height: 40vh; overflow-y: auto;">
-      <img src="./picture/shenru1.png" alt="图片1" style="max-width: min(100%, 400px); height: auto; border-radius: 8px; object-fit: contain;">
-      <img src="./picture/shenru2.png" alt="图片2" style="max-width: min(100%, 400px); height: auto; border-radius: 8px; object-fit: contain;">
+      <p id="gatekeeper-message" style="
+        color: #e53e3e; 
+        margin-top: clamp(12px, 3vw, 18px); 
+        min-height: 20px; 
+        font-size: clamp(11px, 2.5vw, 14px);
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin-top: clamp(8px, 2vw, 12px);
+        }
+      "></p>
+      <p id="gatekeeper-timer" style="
+        color: #718096; 
+        margin-top: 8px; 
+        font-size: clamp(11px, 2.5vw, 14px);
+        @media (max-height: 500px) and (orientation: landscape) {
+          margin-top: 4px;
+        }
+      "></p>
     </div>
   `;
   
-  // 添加到DOM
   document.documentElement.appendChild(overlay);
   document.body.style.display = 'none';
 
@@ -122,54 +402,123 @@ const initGatekeeper = () => {
   const submitButton = document.getElementById('gatekeeper-submit');
   const messageEl = document.getElementById('gatekeeper-message');
   const timerEl = document.getElementById('gatekeeper-timer');
+  const registerLabel = document.getElementById('register-label');
+  const registerTip = document.getElementById('register-tip');
   
-  // 更新锁定状态显示
+  // 输入框焦点
+  usernameInput.addEventListener('focus', () => {
+    usernameInput.style.borderColor = '#1677ff';
+    usernameInput.style.background = '#ffffff';
+    usernameInput.style.boxShadow = '0 0 0 3px rgba(22, 119, 255, 0.1)';
+  });
+  usernameInput.addEventListener('blur', () => {
+    usernameInput.style.borderColor = '#e2e8f0';
+    usernameInput.style.background = '#f7fafc';
+    usernameInput.style.boxShadow = 'none';
+  });
+  
+  passwordInput.addEventListener('focus', () => {
+    passwordInput.style.borderColor = '#1677ff';
+    passwordInput.style.background = '#ffffff';
+    passwordInput.style.boxShadow = '0 0 0 3px rgba(22, 119, 255, 0.1)';
+  });
+  passwordInput.addEventListener('blur', () => {
+    passwordInput.style.borderColor = '#e2e8f0';
+    passwordInput.style.background = '#f7fafc';
+    passwordInput.style.boxShadow = 'none';
+  });
+  
+  // 按钮效果
+  submitButton.addEventListener('mouseenter', () => {
+    if (!submitButton.disabled) {
+      submitButton.style.transform = 'translateY(-2px)';
+      submitButton.style.boxShadow = '0 6px 16px rgba(22, 119, 255, 0.25)';
+    }
+  });
+  submitButton.addEventListener('mouseleave', () => {
+    if (!submitButton.disabled) {
+      submitButton.style.transform = 'translateY(0)';
+      submitButton.style.boxShadow = '0 4px 12px rgba(22, 119, 255, 0.2)';
+    }
+  });
+  submitButton.addEventListener('touchstart', () => {
+    if (!submitButton.disabled) {
+      submitButton.style.transform = 'translateY(-2px)';
+      submitButton.style.boxShadow = '0 6px 16px rgba(22, 119, 255, 0.25)';
+    }
+  });
+  submitButton.addEventListener('touchend', () => {
+    if (!submitButton.disabled) {
+      submitButton.style.transform = 'translateY(0)';
+      submitButton.style.boxShadow = '0 4px 12px rgba(22, 119, 255, 0.2)';
+    }
+  });
+
+  // 注册标签效果
+  registerLabel.addEventListener('mouseenter', () => {
+    registerLabel.style.color = '#4096ff';
+    registerLabel.style.transform = 'scale(1.05)';
+  });  
+  registerLabel.addEventListener('mouseleave', () => {
+    registerLabel.style.color = '#1677ff';
+    registerLabel.style.transform = 'scale(1)';
+  });  
+  registerLabel.addEventListener('click', () => {
+    registerTip.style.color = '#ff0000';
+    registerTip.style.fontSize = 'clamp(14px, 4vw, 16px)';
+    registerTip.style.fontWeight = '600';
+    registerTip.style.transform = 'scale(1.05)';
+    setTimeout(() => {
+      registerTip.style.color = '#718096';
+      registerTip.style.fontSize = 'clamp(12px, 3vw, 14px)';
+      registerTip.style.fontWeight = 'normal';
+      registerTip.style.transform = 'scale(1)';
+    }, 3000);
+  });
+
+  // 锁定状态
   const updateLockStatus = () => {
     const remainingSeconds = checkLockout();
     if (remainingSeconds > 0) {
       submitButton.disabled = true;
-      submitButton.style.background = '#6c757d';
+      submitButton.style.background = '#a0aec0';
+      submitButton.style.boxShadow = 'none';
+      submitButton.style.transform = 'none';
       timerEl.textContent = `请等待 ${remainingSeconds} 秒后重试`;
       setTimeout(updateLockStatus, 1000);
     } else {
       submitButton.disabled = false;
-      submitButton.style.background = '#dc3545';
+      submitButton.style.background = 'linear-gradient(135deg, #1677ff 0%, #4096ff 100%)';
+      submitButton.style.boxShadow = '0 4px 12px rgba(22, 119, 255, 0.2)';
       timerEl.textContent = '';
     }
   };
-
-  // 初始化检查锁定状态
   updateLockStatus();
 
-  // 验证逻辑
+  // 登录验证
   const verifyAccess = () => {
-    // 检查是否处于锁定状态
     const remainingSeconds = checkLockout();
     if (remainingSeconds > 0) {
       updateLockStatus();
       return;
     }
 
-    // 防止重复点击
     submitButton.disabled = true;
     submitButton.textContent = '验证中...';
+    submitButton.style.transform = 'none';
+    submitButton.style.boxShadow = 'none';
 
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
-    
-    // 获取当前尝试次数
     let attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || '0');
     
-    // 立即验证（不再延迟后验证）
     const isValid = VALID_CREDENTIALS.some(cred => 
       cred.username === username && cred.password === password
     );
     
     if(isValid) {
-      // 登录成功，重置计数器
       localStorage.removeItem(ATTEMPTS_KEY);
       localStorage.removeItem(LOCKOUT_KEY);
-      
       document.body.style.display = '';
       overlay.remove();
       sessionStorage.setItem(SESSION_KEY, Date.now());
@@ -186,54 +535,46 @@ const initGatekeeper = () => {
         localStorage.removeItem(PASSWORD_KEY);
       }
     } else {
-      // 登录失败，增加尝试次数并锁定
       attempts++;
       localStorage.setItem(ATTEMPTS_KEY, attempts.toString());
-      
-      // 计算指数递增的延迟时间
       const delay = Math.min(BASE_DELAY * Math.pow(2, attempts - 1), MAX_DELAY);
-      localStorage.setItem(LOCKOUT_KEY, JSON.stringify({
-        timestamp: Date.now(),
-        delay: delay
-      }));
+      localStorage.setItem(LOCKOUT_KEY, JSON.stringify({ timestamp: Date.now(), delay }));
       
-      // 更新UI状态
       updateLockStatus();
       messageEl.textContent = `用户名或密码错误 (${attempts}/${MAX_ATTEMPTS})`;
       passwordInput.value = '';
     }
     
-    // 恢复按钮状态
     submitButton.disabled = remainingSeconds > 0;
     submitButton.textContent = '登录';
   };
 
-  // 事件绑定
-  submitButton.addEventListener('click', verifyAccess);
-  
-  // 回车键支持
+  submitButton.addEventListener('click', verifyAccess);  
   passwordInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') verifyAccess();
   });
 
-  // 自动填充记住的用户名和密码
+  // 自动填充
   const savedCreds = localStorage.getItem(CREDS_KEY);
-  const savedPassword = localStorage.getItem(PASSWORD_KEY);
-  
+  const savedPassword = localStorage.getItem(PASSWORD_KEY);  
   if (savedCreds) {
     usernameInput.value = decrypt(savedCreds);
     rememberCheckbox.checked = true;
-    
     if (savedPassword) {
       passwordInput.value = decrypt(savedPassword);
       savePasswordCheckbox.checked = true;
     }
   }
+
+  window.addEventListener('resize', () => {
+    updateLockStatus();
+    overlay.style.display = 'none';
+    setTimeout(() => overlay.style.display = 'flex', 50);
+  });
 };
 
-// 初始化
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initGatekeeper);
 } else {
   initGatekeeper();
-}
+};
