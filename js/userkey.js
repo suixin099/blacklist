@@ -20,6 +20,7 @@ const initGatekeeper = () => {
 	{ data: "emhpc2hpMTIzfHpoaXNoaTEyMw==" }, //2733832616 芝士
 	{ data: "bnVhbnNoZW5nOHw5ODA5MDM=" }, //2464993531 暖笙
 	{ data: "MTMyMDA4OTU1MHxubjEyMzQ1Ng==" }, //1320089550 小乖店
+	{ data: "MTMyMDA4OTU1MHxubjEyMzQ1Ng==" }, //2430799104 艾
   ];
   
   const getValidCredentials = () => {
