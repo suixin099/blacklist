@@ -646,8 +646,8 @@ const initGatekeeper = () => {
 
   window.addEventListener('resize', () => {
     updateLockStatus();
-    overlay.style.display = 'none';
-    setTimeout(() => overlay.style.display = 'flex', 50);
+    //overlay.style.display = 'none';
+    //setTimeout(() => overlay.style.display = 'flex', 50);
   });
 };
 
