@@ -31,6 +31,11 @@ const initGatekeeper = () => {
 	{ data: "MTQyNTM2Nzg5fHp6ejAwMzI0OA==" }, //1274594798 小怜
 	{ data: "MTU5MzU3ODUyfFF5MTIzNDU2" }, //2801475972 鸡毛菜
 	{ data: "dGFpZGl4aW9uZ3x0YWlkaXhpb25nNjY2" }, //2709557337 泰迪熊
+	{ data: "enVpenVpfDExMjIzMw==" }, //2059139484 醉醉
+	{ data: "MzkzMjUxMzI2MHxYaW56aXJ1aTAz" }, //3932513260 聆听
+	{ data: "eHhsMTk5OHxhMjkwNDc2OTU2NA==" }, //2904769564
+	{ data: "MTgyMjMzMDg2MnwxODIyMzMwODYyeHguLg==" }, //1822330862 ^O^
+	{ data: "YWtrMTIyOHx3ZGdxY3hrczAxMjk=" }, //2207259543 AAL
   ];
   
   const getValidCredentials = () => {
