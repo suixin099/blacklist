@@ -2,7 +2,6 @@ function closeDisclaimer() {
     document.getElementById('disclaimerModal').classList.remove('show');
 }
 
-// 常量定义
 const MODAL_SHOW_DURATION = 1400;
 const INPUT_NUMBER_MIN_COUNT = 5;
 const INPUT_CHINESE_MIN_COUNT = 2;
@@ -67,7 +66,6 @@ function displayResults(foundLines) {
         const container = document.createElement('div');
         container.style.margin = '15px 0';
         
-        // 添加结果标题 - 更醒目的样式
         const title = document.createElement('p');
         title.style.color = '#ff4d4f';
         title.style.fontSize = '16px';
@@ -76,7 +74,7 @@ function displayResults(foundLines) {
         title.textContent = `查询到 ${foundLines.length} 条黑名单记录:`;
         container.appendChild(title);
         
-        // 创建带滚动条的列表容器 - 去掉边框，添加阴影效果
+        // 创建带滚动条的列表容器
         const scrollContainer = document.createElement('div');
         scrollContainer.style.maxHeight = '500px';
         scrollContainer.style.overflowY = 'auto';
@@ -89,7 +87,7 @@ function displayResults(foundLines) {
         resultList.style.margin = '0';
         resultList.style.paddingLeft = '25px';
         
-        // 添加列表项（最多200条） - 更优雅的列表样式
+        // 添加列表项（最多200条）
         const displayCount = Math.min(foundLines.length, 200);
         for (let i = 0; i < displayCount; i++) {
             const listItem = document.createElement('li');
@@ -98,11 +96,7 @@ function displayResults(foundLines) {
             listItem.style.padding = '6px 10px';
             listItem.style.borderRadius = '3px';
             listItem.style.transition = 'background-color 0.3s';
-            
-            // 斑马条纹效果
             listItem.style.backgroundColor = i % 2 === 0 ? 'rgba(0, 0, 0, 0.02)' : 'transparent';
-            
-            // 鼠标悬停效果
             listItem.onmouseenter = () => {
                 listItem.style.backgroundColor = 'rgba(255, 77, 79, 0.08)';
             };
@@ -116,7 +110,6 @@ function displayResults(foundLines) {
         scrollContainer.appendChild(resultList);
         container.appendChild(scrollContainer);
         
-        // 如果结果超过200条，添加提示 - 更精致的提示样式
         if (foundLines.length > 200) {
             const tip = document.createElement('p');
             tip.style.color = '#faad14';
@@ -131,7 +124,6 @@ function displayResults(foundLines) {
         
         resultElement.appendChild(container);
     } else {
-        // 无结果时的优雅显示
         const noResult = document.createElement('div');
         noResult.style.color = '#52c41a';
         noResult.style.padding = '20px';
