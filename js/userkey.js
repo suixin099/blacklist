@@ -25,6 +25,7 @@ const initGatekeeper = () => {
 	{ data: "aGVpaGVpODg4fGExMjM0NTY=" }, //1095824511 黑黑
 	{ data: "ZHVvZHVvfDM3MzgzOWFi" }, //3440932924 囡的小迷妹
 	{ data: "bGxsMTIzMTIzfGxsbDEyMzEyMw==" }, //479605794 上瘾
+	{ data: "ODc3NjE3NTgxfG1lbmcxNTI1" }, //375571891 高冷芝士
   ];
   
   const getValidCredentials = () => {
