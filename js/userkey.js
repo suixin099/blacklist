@@ -29,6 +29,7 @@ const initGatekeeper = () => {
 	{ data: "eGluZ3l1ZXx4aW5neXVlOTYz" }, //3458246544 星月小店
 	{ data: "Y2hlbmdjaGVuZ3xjaGVuZ2NoZW5nODg4OA==" }, //1779041813 橙橙
 	{ data: "MTQyNTM2Nzg5fHp6ejAwMzI0OA==" }, //1274594798 小怜
+	{ data: "MTU5MzU3ODUyfFF5MTIzNDU2" }, //2801475972 鸡毛菜
   ];
   
   const getValidCredentials = () => {
