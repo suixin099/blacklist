@@ -26,6 +26,9 @@ const initGatekeeper = () => {
 	{ data: "ZHVvZHVvfDM3MzgzOWFi" }, //3440932924 囡的小迷妹
 	{ data: "bGxsMTIzMTIzfGxsbDEyMzEyMw==" }, //479605794 上瘾
 	{ data: "ODc3NjE3NTgxfG1lbmcxNTI1" }, //375571891 高冷芝士
+	{ data: "eGluZ3l1ZXx4aW5neXVlOTYz" }, //3458246544 星月小店
+	{ data: "Y2hlbmdjaGVuZ3xjaGVuZ2NoZW5nODg4OA==" }, //1779041813 橙橙
+	{ data: "MTQyNTM2Nzg5fHp6ejAwMzI0OA==" }, //1274594798 小怜
   ];
   
   const getValidCredentials = () => {
