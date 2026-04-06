@@ -30,6 +30,7 @@ const initGatekeeper = () => {
 	{ data: "Y2hlbmdjaGVuZ3xjaGVuZ2NoZW5nODg4OA==" }, //1779041813 橙橙
 	{ data: "MTQyNTM2Nzg5fHp6ejAwMzI0OA==" }, //1274594798 小怜
 	{ data: "MTU5MzU3ODUyfFF5MTIzNDU2" }, //2801475972 鸡毛菜
+	{ data: "dGFpZGl4aW9uZ3x0YWlkaXhpb25nNjY2" }, //2709557337 泰迪熊
   ];
   
   const getValidCredentials = () => {
