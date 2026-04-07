@@ -36,6 +36,8 @@ const initGatekeeper = () => {
 	{ data: "eHhsMTk5OHxhMjkwNDc2OTU2NA==" }, //2904769564
 	{ data: "MTgyMjMzMDg2MnwxODIyMzMwODYyeHguLg==" }, //1822330862 ^O^
 	{ data: "YWtrMTIyOHx3ZGdxY3hrczAxMjk=" }, //2207259543 AAL
+	{ data: "MTExMzkzNjg1M3xhOTk5ODg4" }, //1113936853 王厶
+	//{ data: "" }, //
   ];
   
   const getValidCredentials = () => {
