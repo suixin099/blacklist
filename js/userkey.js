@@ -37,7 +37,8 @@ const initGatekeeper = () => {
 	{ data: "MTgyMjMzMDg2MnwxODIyMzMwODYyeHguLg==" }, //1822330862 ^O^
 	{ data: "YWtrMTIyOHx3ZGdxY3hrczAxMjk=" }, //2207259543 AAL
 	{ data: "MTExMzkzNjg1M3xhOTk5ODg4" }, //1113936853 王厶
-	//{ data: "" }, //
+	{ data: "MzU5MDEzNzQ2MHwzNTkwMTM3NDYweg==" }, //3590137460 小渝
+	{ data: "MTA5NTI1MDY0OXxneHh6YXpqMjE3" }, //2959841732 乖乖
   ];
   
   const getValidCredentials = () => {
