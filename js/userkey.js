@@ -18,7 +18,6 @@ const initGatekeeper = () => {
 	{ data: "MTAxMTQ4NzIyNHwxMDExNDg3MjI0QA==" }, //1011487224 菲菲
 	{ data: "dGlhbnphaXxsc202MjU4MDku" }, //1185819098 9
 	{ data: "emhpc2hpMTIzfHpoaXNoaTEyMw==" }, //2733832616 芝士
-	{ data: "bnVhbnNoZW5nOHw5ODA5MDM=" }, //2464993531 暖笙
 	{ data: "MTMyMDA4OTU1MHxubjEyMzQ1Ng==" }, //1320089550 小乖店
 	{ data: "MTMyMDA4OTU1MHxubjEyMzQ1Ng==" }, //2430799104 艾
 	{ data: "cWF6MzM1fHFxMTIzNDU2" }, //3676171200 伽澜
