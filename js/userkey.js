@@ -224,7 +224,7 @@ const initGatekeeper = () => {
           font-weight: 600;
           width: 100%;
           text-align: center;
-        ">联系：随心</p>
+        ">接担保+宣传 联系：随心</p>
       </div>
       
       <div style="
