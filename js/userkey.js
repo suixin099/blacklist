@@ -38,6 +38,7 @@ const initGatekeeper = () => {
 	{ data: "MTExMzkzNjg1M3xhOTk5ODg4" }, //1113936853 王厶
 	{ data: "MzU5MDEzNzQ2MHwzNTkwMTM3NDYweg==" }, //3590137460 小渝
 	{ data: "MTA5NTI1MDY0OXxneHh6YXpqMjE3" }, //2959841732 乖乖
+	{ data: "UXdlMDMwM3xxd2UwMzEyMw==" }, //227263189 大菜包店
   ];
   
   const getValidCredentials = () => {
