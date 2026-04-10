@@ -39,6 +39,10 @@ const initGatekeeper = () => {
 	{ data: "MzU5MDEzNzQ2MHwzNTkwMTM3NDYweg==" }, //3590137460 小渝
 	{ data: "MTA5NTI1MDY0OXxneHh6YXpqMjE3" }, //2959841732 乖乖
 	{ data: "UXdlMDMwM3xxd2UwMzEyMw==" }, //227263189 大菜包店
+	{ data: "MTIxNTc0NDMyMXwxMjE1NzQ0MzIx" }, //3123144416 书言虞姬代理
+	{ data: "cXdlYXNkenhjfDEyMzQ1Njc4OQ==" }, //1923419276 爱腾迅优质
+	{ data: "Y2h1Y2h1fHF3ZXJ0eXVpb3A=" }, //298823381 初店铺
+	{ data: "cWlhbmdnZXxxcXFxcXFxcQ==" }, //3485266217 强强强
   ];
   
   const getValidCredentials = () => {
