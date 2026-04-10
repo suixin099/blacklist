@@ -48,6 +48,7 @@ const initGatekeeper = () => {
 	{ data: "TElOMDMxMXxhMjUzMjEzMzQ4Nw==" }, //1306591095 嘟嘟店
 	{ data: "bWliaW5nMTAwNnx6eGMxMjMzMjE=" }, //2427722643 bb全能店
 	{ data: "OTU2NTU0MHwxMjM0d2Vu" }, //9565540 小小雯
+	{ data: "cWlhbnN1aTUyMXxxaWFuc3VpLi4u" }, //984241501 千穗
   ];
   
   const getValidCredentials = () => {
