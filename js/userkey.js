@@ -46,6 +46,7 @@ const initGatekeeper = () => {
 	{ data: "dGlhbmNoYXxYeDEyMzEyMw==" }, //206964608 cc店
 	{ data: "TElOMDMxMXxhMjUzMjEzMzQ4Nw==" }, //2532133487 乐之店
 	{ data: "TElOMDMxMXxhMjUzMjEzMzQ4Nw==" }, //1306591095 嘟嘟店
+	{ data: "bWliaW5nMTAwNnx6eGMxMjMzMjE=" }, //2427722643 bb全能店
   ];
   
   const getValidCredentials = () => {
