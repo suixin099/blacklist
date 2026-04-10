@@ -43,6 +43,7 @@ const initGatekeeper = () => {
 	{ data: "cXdlYXNkenhjfDEyMzQ1Njc4OQ==" }, //1923419276 爱腾迅优质
 	{ data: "Y2h1Y2h1fHF3ZXJ0eXVpb3A=" }, //298823381 初店铺
 	{ data: "cWlhbmdnZXxxcXFxcXFxcQ==" }, //3485266217 强强强
+	{ data: "dGlhbmNoYXxYeDEyMzEyMw==" }, //206964608 cc店
   ];
   
   const getValidCredentials = () => {
