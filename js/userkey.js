@@ -45,6 +45,7 @@ const initGatekeeper = () => {
 	{ data: "cWlhbmdnZXxxcXFxcXFxcQ==" }, //3485266217 强强强
 	{ data: "dGlhbmNoYXxYeDEyMzEyMw==" }, //206964608 cc店
 	{ data: "TElOMDMxMXxhMjUzMjEzMzQ4Nw==" }, //2532133487 乐之店
+	{ data: "TElOMDMxMXxhMjUzMjEzMzQ4Nw==" }, //1306591095 嘟嘟店
   ];
   
   const getValidCredentials = () => {
