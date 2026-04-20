@@ -50,6 +50,8 @@ const initGatekeeper = () => {
 	{ data: "OTU2NTU0MHwxMjM0d2Vu" }, //9565540 小小雯
 	{ data: "cWlhbnN1aTUyMXxxaWFuc3VpLi4u" }, //984241501 千穗
 	{ data: "YTc2MDEwMHxhNzYwMTAwLg==" }, //760100920 方且
+	{ data: "amlhb2ppYW8xMzE0fDEwOTAxMzkyNTY=" }, //1090139256 苏娇娇
+	{ data: "eGl4aTEyM3x4aXhpNDU2" }, //3097786458 布丁
   ];
   
   const getValidCredentials = () => {
