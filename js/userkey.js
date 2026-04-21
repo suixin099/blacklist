@@ -52,6 +52,8 @@ const initGatekeeper = () => {
 	{ data: "YTc2MDEwMHxhNzYwMTAwLg==" }, //760100920 方且
 	{ data: "amlhb2ppYW8xMzE0fDEwOTAxMzkyNTY=" }, //1090139256 苏娇娇
 	{ data: "eGl4aTEyM3x4aXhpNDU2" }, //3097786458 布丁
+	{ data: "VGlmYXl5ZHN8NzI1NjEy" }, //1909354732 tifa
+	{ data: "c3NkNjYwNjYwfHNzZDY2MDY2MA==" }, //782526065 寿仔
   ];
   
   const getValidCredentials = () => {
@@ -229,7 +231,7 @@ const initGatekeeper = () => {
           margin-bottom: 6px;
           box-shadow: 0 2px 6px rgba(229, 62, 62, 0.12);
         ">
-          📣 广告位招租
+          📣 随心担保 今麦 出不出/同
         </div>
         <p style="
           color: #2d3748;
@@ -238,7 +240,7 @@ const initGatekeeper = () => {
           font-weight: 600;
           width: 100%;
           text-align: center;
-        ">接担保+宣传 联系：随心</p>
+        ">180****492 333****529<br>群里搜昵称对应QQ，找不到联系随心</p>
       </div>
       
       <div style="
