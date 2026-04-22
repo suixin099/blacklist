@@ -55,6 +55,7 @@ const initGatekeeper = () => {
 	{ data: "VGlmYXl5ZHN8NzI1NjEy" }, //1909354732 tifa
 	{ data: "c3NkNjYwNjYwfHNzZDY2MDY2MA==" }, //782526065 寿仔
 	{ data: "MTg3MDMwMjUyNzV8MXEycTNxNHE=" }, //2840838942 小小店铺
+	{ data: "ZGluZ3BlaXxkaW5ncGVpODg4" }, //3143265506 顶配店
   ];
   
   const getValidCredentials = () => {
