@@ -13,7 +13,7 @@ const initGatekeeper = () => {
 	{ data: "MTM0NjQ0Mjc2fGx4bHgxMjM0" }, //2410913226 优
 	{ data: "MzA2NTUyMTF8MTU5MzU3MjgwcQ==" }, //3046552117 知音
 	{ data: "NDQ0ODI2NzA5fDQ0NDgyNjcwOQ==" }, //444826709 逍遥
-	{ data: "encwMzI5fHp3NDIwMzI2Li4=" }, //13692002 辰雪
+	//{ data: "encwMzI5fHp3NDIwMzI2Li4=" }, //13692002 辰雪
 	{ data: "MzM4Mzc1MDQ2OHxxaW4zMzgzNzUwNDY4" }, //3383750468 Nova
 	{ data: "MTAxMTQ4NzIyNHwxMDExNDg3MjI0QA==" }, //1011487224 菲菲
 	{ data: "dGlhbnphaXxsc202MjU4MDku" }, //1185819098 9
@@ -595,6 +595,13 @@ const initGatekeeper = () => {
     const username = usernameInput.value.trim();
     const password = passwordInput.value.trim();
     let attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || '0');
+	
+	if (username === 'zw0329') {
+    messageEl.textContent = '账户异常，请联系管理员';
+    submitButton.disabled = false;
+    submitButton.textContent = '登录';
+    return;
+  }
     
     const isValid = VALID_CREDENTIALS.some(cred => 
       cred.username === username && cred.password === password
